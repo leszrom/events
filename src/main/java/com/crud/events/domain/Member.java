@@ -30,4 +30,29 @@ public class Member {
 
     public Member() {
     }
+
+    public Member(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
 }
