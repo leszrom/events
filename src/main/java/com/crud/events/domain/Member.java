@@ -20,9 +20,8 @@ public class Member {
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "Members_Permissions",
-            joinColumns = {@JoinColumn(name = "MemberID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PermissionID", referencedColumnName = "ID")}
-    )
+            joinColumns = @JoinColumn(name = "MemberID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "PermissionID", referencedColumnName = "ID"))
     private List<Permission> permissions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "members")
