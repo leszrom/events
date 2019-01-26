@@ -25,6 +25,9 @@ public class Member {
     )
     private List<Permission> permissions = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "members")
+    private List<Event> events = new ArrayList<>();
+
     public Member() {
     }
 }
