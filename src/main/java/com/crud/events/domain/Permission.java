@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "Permissions")
+@Entity
+@Table(name = "Permissions")
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "Events")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
