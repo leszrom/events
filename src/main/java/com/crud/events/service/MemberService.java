@@ -30,7 +30,7 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponse getMemberById(Long id) {
+    public MemberResponse getMemberById(final Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
         return memberMapper.mapToMemberResponse(member);
@@ -42,7 +42,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void deleteMemberById(Long id) {
+    public void deleteMemberById(final Long id) {
         memberRepository.deleteById(id);
     }
 }

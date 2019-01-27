@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class MemberMapper {
-    public Member mapToMember(MemberRequest memberRequest) {
+    public Member mapToMember(final MemberRequest memberRequest) {
         return new Member(
                 memberRequest.getFirstname(),
                 memberRequest.getLastname()
         );
     }
 
-    public MemberResponse mapToMemberResponse(Member member) {
+    public MemberResponse mapToMemberResponse(final Member member) {
         return new MemberResponse(
                 member.getId(),
                 member.getFirstname(),
@@ -25,7 +25,7 @@ public class MemberMapper {
         );
     }
 
-    public List<MemberResponse> mapToMemberResponseList(List<Member> members) {
+    public List<MemberResponse> mapToMemberResponseList(final List<Member> members) {
         return members.stream()
                 .map(this::mapToMemberResponse)
                 .collect(Collectors.toList());
