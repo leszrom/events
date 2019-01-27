@@ -202,4 +202,21 @@ public class MemberServiceTestSuite {
         Assert.assertEquals(PermissionNotFoundException.class, caughtException().getClass());
         Assert.assertEquals(exceptionMessage, caughtException().getMessage());
     }
+
+    @Test
+    public void should_throw_exception_when_try_to_add_permission_for_member_which_does_not_exist() {
+        //Given
+        String exceptionMessage = "The Member with the given ID doesn't exist!";
+        Permission permission = new Permission("VIP");
+
+        Mockito.when(memberRepository.findById(1L)).thenThrow(new MemberNotFoundException());
+        Mockito.when(permissionRepository.findByRole("VIP")).thenReturn(Optional.of(permission));
+
+        //When
+        verifyException(memberService).addPermissionByMemberId(1L, "role");
+
+        //Then
+        Assert.assertEquals(MemberNotFoundException.class, caughtException().getClass());
+        Assert.assertEquals(exceptionMessage, caughtException().getMessage());
+    }
 }
