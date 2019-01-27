@@ -36,6 +36,13 @@ public class Member {
         this.lastname = lastname;
     }
 
+    public Member(long id, String firstname, String lastname) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+
     public long getId() {
         return id;
     }
