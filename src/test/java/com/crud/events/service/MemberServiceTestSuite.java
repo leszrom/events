@@ -14,10 +14,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.googlecode.catchexception.CatchException.caughtException;
 import static com.googlecode.catchexception.CatchException.verifyException;
+import static java.util.Collections.emptyList;
+import static org.mockito.Matchers.anyList;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MemberServiceTestSuite {
@@ -81,14 +85,36 @@ public class MemberServiceTestSuite {
     }
 
     @Test
-    public void should_return_GetAllMembers() {
+    public void should_return_list_of_all_members() {
         //Given
+        List<MemberResponse> memberResponseList = new ArrayList<>();
+        memberResponseList.add(new MemberResponse(1L, "Firstname", "Lastname"));
+
+        Mockito.when(memberRepository.findAll()).thenReturn(new ArrayList<>());
+        Mockito.when(memberMapper.mapToMemberResponseList(anyList())).thenReturn(memberResponseList);
 
         //When
+        List<MemberResponse> readMembers = memberService.getAllMembers();
 
         //Then
-
+        readMembers.forEach(member -> {
+                    Assert.assertEquals(1L, member.getId());
+                    Assert.assertEquals("Firstname", member.getFirstname());
+                    Assert.assertEquals("Lastname", member.getLastname());
+                }
+        );
     }
 
+    @Test
+    public void should_return_empty_list_if_there_is_no_member_in_database() {
+        //Given
+        Mockito.when(memberRepository.findAll()).thenReturn(emptyList());
+        Mockito.when(memberMapper.mapToMemberResponseList(emptyList())).thenReturn(new ArrayList<>());
 
+        //When
+        List<MemberResponse> readMembers = memberService.getAllMembers();
+
+        //Then
+        Assert.assertEquals(0, readMembers.size());
+    }
 }
