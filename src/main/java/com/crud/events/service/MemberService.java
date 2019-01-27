@@ -40,4 +40,9 @@ public class MemberService {
     public List<MemberResponse> getAllMembers() {
         return memberMapper.mapToMemberResponseList(memberRepository.findAll());
     }
+
+    @Transactional
+    public void deleteMemberById(Long id) {
+        memberRepository.deleteById(id);
+    }
 }

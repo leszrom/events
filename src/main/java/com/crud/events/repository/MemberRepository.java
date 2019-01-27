@@ -13,4 +13,6 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
     List<Member> findAll();
 
     Optional<Member> findById(Long id);
+
+    void deleteById(Long id);
 }

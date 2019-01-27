@@ -34,4 +34,9 @@ public class MemberController {
     public List<MemberResponse> getMembers() {
         return memberService.getAllMembers();
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "{id}")
+    public void deleteMember(@PathVariable Long id) {
+        memberService.deleteMemberById(id);
+    }
 }
