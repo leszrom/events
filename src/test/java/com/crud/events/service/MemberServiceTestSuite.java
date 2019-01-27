@@ -117,4 +117,14 @@ public class MemberServiceTestSuite {
         //Then
         Assert.assertEquals(0, readMembers.size());
     }
+
+    @Test
+    public void should_delete_task_by_given_id() {
+        //Given
+        //When
+        memberService.deleteMemberById(1L);
+
+        //Then
+        Mockito.verify(memberRepository, Mockito.times(1)).deleteById(1L);
+    }
 }
