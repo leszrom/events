@@ -10,7 +10,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private long id;
+    private Long id;
 
     @Column(name = "Firstname")
     private String firstname;
@@ -36,7 +36,7 @@ public class Member {
         this.lastname = lastname;
     }
 
-    public Member(long id, String firstname, String lastname) {
+    public Member(Long id, String firstname, String lastname) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;

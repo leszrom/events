@@ -1,14 +1,14 @@
 package com.crud.events.domain.dto;
 
 public class MemberResponse {
-    private long id;
+    private Long id;
     private String firstname;
     private String lastname;
 
     public MemberResponse() {
     }
 
-    public MemberResponse(long id, String firstname, String lastname) {
+    public MemberResponse(Long id, String firstname, String lastname) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;

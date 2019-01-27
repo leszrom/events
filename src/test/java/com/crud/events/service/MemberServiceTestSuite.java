@@ -29,7 +29,7 @@ public class MemberServiceTestSuite {
         //Given
         MemberRequest memberRequest = new MemberRequest("Firstname", "Lastname");
         Member member = new Member("Firstname", "Lastname");
-        Member savedMember = new Member(1, "Firstname", "Lastname");
+        Member savedMember = new Member(1L, "Firstname", "Lastname");
 
         Mockito.when(memberMapper.mapToMember(memberRequest)).thenReturn(member);
         Mockito.when(memberRepository.save(member)).thenReturn(savedMember);
@@ -38,7 +38,7 @@ public class MemberServiceTestSuite {
         Long id = memberService.saveMember(memberRequest);
 
         //Then
-        Assert.assertEquals(1, (long) id);
+        Assert.assertEquals(1L, (long) id);
     }
 
     @Test
