@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -33,5 +34,10 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
         return memberMapper.mapToMemberResponse(member);
+    }
+
+    @Transactional
+    public List<MemberResponse> getAllMembers() {
+        return memberMapper.mapToMemberResponseList(memberRepository.findAll());
     }
 }

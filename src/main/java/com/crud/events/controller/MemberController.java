@@ -6,6 +6,8 @@ import com.crud.events.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -26,5 +28,10 @@ public class MemberController {
     @RequestMapping(method = RequestMethod.GET, value = "{id}")
     public MemberResponse getMember(@PathVariable Long id) {
         return memberService.getMemberById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<MemberResponse> getMembers() {
+        return memberService.getAllMembers();
     }
 }
