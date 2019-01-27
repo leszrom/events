@@ -135,6 +135,42 @@ public class MemberServiceTestSuite {
     }
 
     @Test
+    public void should_update_member_details_if_member_with_given_id_exist() {
+        //Given
+        Member member = new Member(1L, "Firstname", "Lastname");
+        MemberRequest memberRequest = new MemberRequest("newFirstname", "newLastname");
+
+        Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
+
+        //When
+        memberService.updateMemberDetails(1L, memberRequest);
+
+        //Then
+        Mockito.verify(memberMapper, Mockito.times(1)).mapToMemberResponse(member);
+        Assert.assertEquals(1L, (long) member.getId());
+        Assert.assertEquals("newFirstname", member.getFirstname());
+        Assert.assertEquals("newLastname", member.getLastname());
+    }
+
+
+    @Test
+    public void should_throw_exception_when_try_to_update_member_which_does_not_exist() {
+        //Given
+        String exceptionMessage = "The Member with the given ID doesn't exist!";
+        MemberRequest memberRequest = new MemberRequest("newFirstname", "newLastname");
+
+        Mockito.when(memberRepository.findById(1L)).thenThrow(new MemberNotFoundException());
+
+        //When
+        verifyException(memberService).updateMemberDetails(1L, memberRequest);
+
+        //Then
+        Assert.assertEquals(MemberNotFoundException.class, caughtException().getClass());
+        Assert.assertEquals(exceptionMessage, caughtException().getMessage());
+
+    }
+
+    @Test
     public void should_add_permission_with_given_role_for_member_by_given_id() {
         //Given
         Member member = new Member(1L, "Firstname", "Lastname");
