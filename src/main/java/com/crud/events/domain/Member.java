@@ -43,7 +43,7 @@ public class Member {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
