@@ -20,4 +20,8 @@ public class Permission {
 
     public Permission() {
     }
+
+    public Permission(String role) {
+        this.role = role;
+    }
 }

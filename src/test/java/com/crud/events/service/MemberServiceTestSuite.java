@@ -1,11 +1,14 @@
 package com.crud.events.service;
 
 import com.crud.events.domain.Member;
+import com.crud.events.domain.Permission;
 import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.domain.dto.MemberResponse;
 import com.crud.events.exception.MemberNotFoundException;
+import com.crud.events.exception.PermissionNotFoundException;
 import com.crud.events.mapper.MemberMapper;
 import com.crud.events.repository.MemberRepository;
+import com.crud.events.repository.PermissionRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +34,9 @@ public class MemberServiceTestSuite {
 
     @Mock
     private MemberRepository memberRepository;
+
+    @Mock
+    private PermissionRepository permissionRepository;
 
     @Mock
     private MemberMapper memberMapper;
@@ -126,5 +132,38 @@ public class MemberServiceTestSuite {
 
         //Then
         Mockito.verify(memberRepository, Mockito.times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void should_add_permission_with_given_role_for_member_by_given_id() {
+        //Given
+        Member member = new Member(1L, "Firstname", "Lastname");
+        Permission permission = new Permission("VIP");
+
+        Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
+        Mockito.when(permissionRepository.findByRole("VIP")).thenReturn(Optional.of(permission));
+
+        //When
+        memberService.addPermissionByMemberId(1L, "VIP");
+
+        //Then
+        Assert.assertTrue(member.getPermissions().contains(permission));
+    }
+
+    @Test
+    public void should_throw_exception_when_permission_with_given_role_does_not_exist() {
+        //Given
+        String exceptionMessage = "The Permission with the given ROLE doesn't exist!";
+        Member member = new Member(1L, "Firstname", "Lastname");
+
+        Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
+        Mockito.when(permissionRepository.findByRole("role")).thenThrow(new PermissionNotFoundException());
+
+        //When
+        verifyException(memberService).addPermissionByMemberId(1L, "role");
+
+        //Then
+        Assert.assertEquals(PermissionNotFoundException.class, caughtException().getClass());
+        Assert.assertEquals(exceptionMessage, caughtException().getMessage());
     }
 }
