@@ -62,4 +62,12 @@ public class Member {
     public List<Event> getEvents() {
         return events;
     }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 }

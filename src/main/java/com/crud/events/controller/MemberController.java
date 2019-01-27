@@ -40,6 +40,11 @@ public class MemberController {
         memberService.deleteMemberById(id);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE, value = "{id}")
+    public MemberResponse updateMember(@RequestBody MemberRequest memberRequest, @PathVariable Long id) {
+        return memberService.updateMemberDetails(id, memberRequest);
+    }
+
     @RequestMapping(method = RequestMethod.PUT, value = "{id}/permissions")
     public void addPermission(@PathVariable Long id, String role) {
         memberService.addPermissionByMemberId(id, role);

@@ -52,6 +52,15 @@ public class MemberService {
     }
 
     @Transactional
+    public MemberResponse updateMemberDetails(final Long id, final MemberRequest memberRequest) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(MemberNotFoundException::new);
+        member.setFirstname(memberRequest.getFirstname());
+        member.setLastname(memberRequest.getLastname());
+        return memberMapper.mapToMemberResponse(member);
+    }
+
+    @Transactional
     public void addPermissionByMemberId(final Long id, final String role) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
