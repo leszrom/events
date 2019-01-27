@@ -39,4 +39,9 @@ public class MemberController {
     public void deleteMember(@PathVariable Long id) {
         memberService.deleteMemberById(id);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "{id}/permissions")
+    public void addPermission(@PathVariable Long id, String role) {
+        memberService.addPermissionByMemberId(id, role);
+    }
 }
