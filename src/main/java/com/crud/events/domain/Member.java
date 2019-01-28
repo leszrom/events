@@ -4,7 +4,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "Member.retrieveMembersWithRole",
+                query = "SELECT m FROM Members m JOIN m.permissions P WHERE P.role = :ROLE")
+})
+
+@Entity(name = "Members")
 @Table(name = "Members")
 public class Member {
     @Id
