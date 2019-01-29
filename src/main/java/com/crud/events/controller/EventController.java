@@ -26,4 +26,8 @@ public class EventController {
     public void addEventMember(Long memberId, @PathVariable Long eventId) {
         eventService.addMemberToEvent(memberId, eventId);
     }
+    @RequestMapping(method = RequestMethod.DELETE, value = "{eventId}/members")
+    public void removeEventMember(Long memberId, @PathVariable Long eventId) {
+        eventService.removeMemberFromEvent(memberId, eventId);
+    }
 }

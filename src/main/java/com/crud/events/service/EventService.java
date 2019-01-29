@@ -43,4 +43,13 @@ public class EventService {
                 .orElseThrow(EventNotFoundException::new);
         event.getMembers().add(member);
     }
+
+    @Transactional
+    public void removeMemberFromEvent(final Long memberId, final Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(EventNotFoundException::new);
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(MemberNotFoundException::new);
+        event.getMembers().remove(member);
+    }
 }
