@@ -33,6 +33,12 @@ public class Event {
         this.description = description;
     }
 
+    public Event(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }
