@@ -3,6 +3,8 @@ package com.crud.events.service;
 import com.crud.events.domain.Event;
 import com.crud.events.domain.Member;
 import com.crud.events.domain.dto.EventRequest;
+import com.crud.events.exception.EventNotFoundException;
+import com.crud.events.exception.MemberNotFoundException;
 import com.crud.events.mapper.EventMapper;
 import com.crud.events.repository.EventRepository;
 import com.crud.events.repository.MemberRepository;
@@ -31,5 +33,14 @@ public class EventService {
         List<Member> members = memberRepository.retrieveMembersWithRole("VIP");
         members.forEach(member -> event.getMembers().add(member));
         return eventRepository.save(event).getId();
+    }
+
+    @Transactional
+    public void addMemberToEvent(final Long memberId, final Long eventId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(MemberNotFoundException::new);
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(EventNotFoundException::new);
+        event.getMembers().add(member);
     }
 }
