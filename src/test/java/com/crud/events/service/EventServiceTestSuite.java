@@ -81,4 +81,20 @@ public class EventServiceTestSuite {
         });
     }
 
+    @Test
+    public void should_remove_member_from_existing_event_members() {
+        //Given
+        Member member = new Member(3L, "Firstname", "Lastname");
+        Event event = new Event(5L, "Name", "Description");
+        event.getMembers().add(member);
+
+        Mockito.when(memberRepository.findById(3L)).thenReturn(Optional.of(member));
+        Mockito.when(eventRepository.findById(5L)).thenReturn(Optional.of(event));
+
+        //When
+        eventService.removeMemberFromEvent(3L, 5L);
+
+        //Then
+        Assert.assertEquals(0, event.getMembers().size());
+    }
 }
