@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +37,11 @@ public class EventServiceTestSuite {
     @Test
     public void should_create_new_event_with_default_all_vip_members() {
         //Given
-        EventRequest eventRequest = new EventRequest("Name", "Description");
-        Event event = new Event("Name", "Description");
-        Event savedEvent = new Event(5L, "Name", "Description");
+        EventRequest eventRequest = new EventRequest("Name", "Description", "2018-01-23 14:30");
+        Event event = new Event("Name", "Description",
+                LocalDateTime.parse("2018-01-23 14:30"));
+        Event savedEvent = new Event(5L, "Name", "Description",
+                LocalDateTime.parse("2018-01-23 14:30"));
 
         List<Member> vipMembers = new ArrayList<>();
         vipMembers.add(new Member(1L, "Firstname", "Lastname"));
@@ -65,7 +68,8 @@ public class EventServiceTestSuite {
     public void should_add_member_to_existing_event_members() {
         //Given
         Member member = new Member(3L, "Firstname", "Lastname");
-        Event event = new Event(5L, "Name", "Description");
+        Event event = new Event(5L, "Name", "Description",
+                LocalDateTime.parse("2018-01-23 14:30"));
 
         Mockito.when(memberRepository.findById(3L)).thenReturn(Optional.of(member));
         Mockito.when(eventRepository.findById(5L)).thenReturn(Optional.of(event));
@@ -85,7 +89,8 @@ public class EventServiceTestSuite {
     public void should_remove_member_from_existing_event_members() {
         //Given
         Member member = new Member(3L, "Firstname", "Lastname");
-        Event event = new Event(5L, "Name", "Description");
+        Event event = new Event(5L, "Name", "Description",
+                LocalDateTime.parse("2018-01-23 14:30"));
         event.getMembers().add(member);
 
         Mockito.when(memberRepository.findById(3L)).thenReturn(Optional.of(member));

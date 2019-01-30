@@ -1,6 +1,7 @@
 package com.crud.events.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class Event {
     @Column(name = "Description")
     private String description;
 
+    @Column(name  = "Eventdate")
+    private LocalDateTime date;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "Events_Members",
@@ -28,15 +32,17 @@ public class Event {
     public Event() {
     }
 
-    public Event(String name, String description) {
+    public Event(String name, String description, LocalDateTime date) {
         this.name = name;
         this.description = description;
+        this.date = date;
     }
 
-    public Event(Long id, String name, String description) {
+    public Event(Long id, String name, String description, LocalDateTime date) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.date = date;
     }
 
     public Long getId() {
@@ -49,6 +55,10 @@ public class Event {
 
     public String getDescription() {
         return description;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 
     public List<Member> getMembers() {
