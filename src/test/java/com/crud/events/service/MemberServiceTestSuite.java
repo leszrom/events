@@ -219,4 +219,21 @@ public class MemberServiceTestSuite {
         Assert.assertEquals(MemberNotFoundException.class, caughtException().getClass());
         Assert.assertEquals(exceptionMessage, caughtException().getMessage());
     }
+
+    @Test
+    public void should_revoke_permission_with_given_role_for_member_by_given_id() {
+        //Given
+        Member member = new Member(1L, "Firstname", "Lastname");
+        Permission permission = new Permission("VIP");
+        member.getPermissions().add(permission);
+
+        Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
+        Mockito.when(permissionRepository.findByRole("VIP")).thenReturn(Optional.of(permission));
+
+        //When
+        memberService.revokePermissionByMemberId(1L, "VIP");
+
+        //Then
+        Assert.assertEquals(0, member.getPermissions().size());
+    }
 }
