@@ -37,7 +37,8 @@ public class EventServiceTestSuite {
     @Test
     public void should_create_new_event_with_default_all_vip_members() {
         //Given
-        EventRequest eventRequest = new EventRequest("Name", "Description", LocalDateTime.parse("2018-01-23T14:30"));
+        EventRequest eventRequest = new EventRequest("Name", "Description",
+                LocalDateTime.parse("2018-01-23T14:30"));
         Event event = new Event("Name", "Description",
                 LocalDateTime.parse("2018-01-23T14:30"));
         Event savedEvent = new Event(5L, "Name", "Description",
