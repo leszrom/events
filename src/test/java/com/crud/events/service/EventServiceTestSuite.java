@@ -37,11 +37,11 @@ public class EventServiceTestSuite {
     @Test
     public void should_create_new_event_with_default_all_vip_members() {
         //Given
-        EventRequest eventRequest = new EventRequest("Name", "Description", "2018-01-23 14:30");
+        EventRequest eventRequest = new EventRequest("Name", "Description", LocalDateTime.parse("2018-01-23T14:30"));
         Event event = new Event("Name", "Description",
-                LocalDateTime.parse("2018-01-23 14:30"));
+                LocalDateTime.parse("2018-01-23T14:30"));
         Event savedEvent = new Event(5L, "Name", "Description",
-                LocalDateTime.parse("2018-01-23 14:30"));
+                LocalDateTime.parse("2018-01-23T14:30"));
 
         List<Member> vipMembers = new ArrayList<>();
         vipMembers.add(new Member(1L, "Firstname", "Lastname"));
@@ -69,7 +69,7 @@ public class EventServiceTestSuite {
         //Given
         Member member = new Member(3L, "Firstname", "Lastname");
         Event event = new Event(5L, "Name", "Description",
-                LocalDateTime.parse("2018-01-23 14:30"));
+                LocalDateTime.parse("2018-01-23T14:30"));
 
         Mockito.when(memberRepository.findById(3L)).thenReturn(Optional.of(member));
         Mockito.when(eventRepository.findById(5L)).thenReturn(Optional.of(event));
@@ -90,7 +90,7 @@ public class EventServiceTestSuite {
         //Given
         Member member = new Member(3L, "Firstname", "Lastname");
         Event event = new Event(5L, "Name", "Description",
-                LocalDateTime.parse("2018-01-23 14:30"));
+                LocalDateTime.parse("2018-01-23T14:30"));
         event.getMembers().add(member);
 
         Mockito.when(memberRepository.findById(3L)).thenReturn(Optional.of(member));
