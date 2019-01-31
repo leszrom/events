@@ -1,6 +1,7 @@
 package com.crud.events.repository;
 
 import com.crud.events.domain.Member;
+import com.crud.events.domain.Role;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,5 +20,5 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
     void deleteById(Long id);
 
     @Query
-    List<Member> retrieveMembersWithRole(@Param("ROLE") String role);
+    List<Member> retrieveMembersWithRole(@Param("ROLE") Role role);
 }

@@ -2,6 +2,7 @@ package com.crud.events.service;
 
 import com.crud.events.domain.Member;
 import com.crud.events.domain.Permission;
+import com.crud.events.domain.Role;
 import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.domain.dto.MemberResponse;
 import com.crud.events.exception.MemberNotFoundException;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.crud.events.domain.Role.VIP;
 import static com.googlecode.catchexception.CatchException.caughtException;
 import static com.googlecode.catchexception.CatchException.verifyException;
 import static java.util.Collections.emptyList;
@@ -174,13 +176,13 @@ public class MemberServiceTestSuite {
     public void should_add_permission_with_given_role_for_member_by_given_id() {
         //Given
         Member member = new Member(1L, "Firstname", "Lastname");
-        Permission permission = new Permission("VIP");
+        Permission permission = new Permission(VIP);
 
         Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
-        Mockito.when(permissionRepository.findByRole("VIP")).thenReturn(Optional.of(permission));
+        Mockito.when(permissionRepository.findByRole(VIP)).thenReturn(Optional.of(permission));
 
         //When
-        memberService.addPermissionByMemberId(1L, "VIP");
+        memberService.addPermissionByMemberId(1L, VIP);
 
         //Then
         Assert.assertTrue(member.getPermissions().contains(permission));
@@ -193,10 +195,10 @@ public class MemberServiceTestSuite {
         Member member = new Member(1L, "Firstname", "Lastname");
 
         Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
-        Mockito.when(permissionRepository.findByRole("role")).thenThrow(new PermissionNotFoundException());
+        Mockito.when(permissionRepository.findByRole(Role.valueOf("role"))).thenThrow(new PermissionNotFoundException());
 
         //When
-        verifyException(memberService).addPermissionByMemberId(1L, "role");
+        verifyException(memberService).addPermissionByMemberId(1L, Role.valueOf("role"));
 
         //Then
         Assert.assertEquals(PermissionNotFoundException.class, caughtException().getClass());
@@ -207,13 +209,13 @@ public class MemberServiceTestSuite {
     public void should_throw_exception_when_try_to_add_permission_for_member_which_does_not_exist() {
         //Given
         String exceptionMessage = "The Member with the given ID doesn't exist!";
-        Permission permission = new Permission("VIP");
+        Permission permission = new Permission(VIP);
 
         Mockito.when(memberRepository.findById(1L)).thenThrow(new MemberNotFoundException());
-        Mockito.when(permissionRepository.findByRole("VIP")).thenReturn(Optional.of(permission));
+        Mockito.when(permissionRepository.findByRole(VIP)).thenReturn(Optional.of(permission));
 
         //When
-        verifyException(memberService).addPermissionByMemberId(1L, "role");
+        verifyException(memberService).addPermissionByMemberId(1L, VIP);
 
         //Then
         Assert.assertEquals(MemberNotFoundException.class, caughtException().getClass());
@@ -224,14 +226,14 @@ public class MemberServiceTestSuite {
     public void should_revoke_permission_with_given_role_for_member_by_given_id() {
         //Given
         Member member = new Member(1L, "Firstname", "Lastname");
-        Permission permission = new Permission("VIP");
+        Permission permission = new Permission(VIP);
         member.getPermissions().add(permission);
 
         Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
-        Mockito.when(permissionRepository.findByRole("VIP")).thenReturn(Optional.of(permission));
+        Mockito.when(permissionRepository.findByRole(VIP)).thenReturn(Optional.of(permission));
 
         //When
-        memberService.revokePermissionByMemberId(1L, "VIP");
+        memberService.revokePermissionByMemberId(1L, VIP);
 
         //Then
         Assert.assertEquals(0, member.getPermissions().size());

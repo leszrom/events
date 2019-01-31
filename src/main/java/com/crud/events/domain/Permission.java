@@ -13,7 +13,8 @@ public class Permission {
     private Long id;
 
     @Column(name = "Role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @ManyToMany(mappedBy = "permissions")
     private List<Member> members = new ArrayList<>();
@@ -21,7 +22,7 @@ public class Permission {
     public Permission() {
     }
 
-    public Permission(String role) {
+    public Permission(Role role) {
         this.role = role;
     }
 }

@@ -2,6 +2,7 @@ package com.crud.events.service;
 
 import com.crud.events.domain.Member;
 import com.crud.events.domain.Permission;
+import com.crud.events.domain.Role;
 import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.domain.dto.MemberResponse;
 import com.crud.events.exception.MemberNotFoundException;
@@ -61,16 +62,16 @@ public class MemberService {
     }
 
     @Transactional
-    public void addPermissionByMemberId(final Long id, final String role) {
+    public void addPermissionByMemberId(final Long id, final Role role) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
         Permission permission = permissionRepository.findByRole(role)
-                .orElseThrow(PermissionNotFoundException::new);
+                .orElse(new Permission(role));
         member.getPermissions().add(permission);
     }
 
     @Transactional
-    public void revokePermissionByMemberId(final Long id, final String role) {
+    public void revokePermissionByMemberId(final Long id, final Role role) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
         Permission permission = permissionRepository.findByRole(role)
