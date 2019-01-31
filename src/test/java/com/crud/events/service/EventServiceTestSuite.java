@@ -2,6 +2,7 @@ package com.crud.events.service;
 
 import com.crud.events.domain.Event;
 import com.crud.events.domain.Member;
+import com.crud.events.domain.Role;
 import com.crud.events.domain.dto.EventRequest;
 import com.crud.events.mapper.EventMapper;
 import com.crud.events.repository.EventRepository;
@@ -18,6 +19,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.crud.events.domain.Role.VIP;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventServiceTestSuite {
@@ -48,7 +51,7 @@ public class EventServiceTestSuite {
         vipMembers.add(new Member(1L, "Firstname", "Lastname"));
 
         Mockito.when(eventMapper.mapToEvent(eventRequest)).thenReturn(event);
-        Mockito.when(memberRepository.retrieveMembersWithRole("VIP")).thenReturn(vipMembers);
+        Mockito.when(memberRepository.retrieveMembersWithRole(VIP)).thenReturn(vipMembers);
         Mockito.when(eventRepository.save(event)).thenReturn(savedEvent);
 
         //When

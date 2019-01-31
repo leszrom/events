@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static com.crud.events.domain.Role.VIP;
+
 @Service
 public class EventService {
     private final EventRepository eventRepository;
@@ -30,7 +32,7 @@ public class EventService {
     @Transactional
     public Long saveNewEvent(final EventRequest eventRequest) {
         Event event = eventMapper.mapToEvent(eventRequest);
-        List<Member> members = memberRepository.retrieveMembersWithRole("VIP");
+        List<Member> members = memberRepository.retrieveMembersWithRole(VIP);
         members.forEach(member -> event.getMembers().add(member));
         return eventRepository.save(event).getId();
     }

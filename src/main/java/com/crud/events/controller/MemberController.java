@@ -1,5 +1,6 @@
 package com.crud.events.controller;
 
+import com.crud.events.domain.Role;
 import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.domain.dto.MemberResponse;
 import com.crud.events.service.MemberService;
@@ -46,12 +47,12 @@ public class MemberController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "{id}/permissions")
-    public void addPermission(@PathVariable Long id, String role) {
+    public void addPermission(@PathVariable Long id, Role role) {
         memberService.addPermissionByMemberId(id, role);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "{id}/permissions/{role}")
-    public void revokePermission(@PathVariable Long id, @PathVariable String role) {
+    public void revokePermission(@PathVariable Long id, @PathVariable Role role) {
         memberService.revokePermissionByMemberId(id, role);
     }
 }
