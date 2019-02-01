@@ -10,7 +10,6 @@ import com.crud.events.exception.PermissionNotFoundException;
 import com.crud.events.mapper.MemberMapper;
 import com.crud.events.repository.MemberRepository;
 import com.crud.events.repository.PermissionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
