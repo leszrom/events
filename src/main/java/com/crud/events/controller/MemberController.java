@@ -51,8 +51,8 @@ public class MemberController {
         memberService.addPermissionByMemberId(id, role);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "{id}/permissions/{role}")
-    public void revokePermission(@PathVariable Long id, @PathVariable Role role) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "{id}/permissions")
+    public void revokePermission(@PathVariable Long id, Role role) {
         memberService.revokePermissionByMemberId(id, role);
     }
 }
