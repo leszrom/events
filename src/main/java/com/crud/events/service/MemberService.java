@@ -46,11 +46,11 @@ public class MemberService {
     }
 
     @Transactional
-        public void deleteMemberById(final Long id) {
-            Member member = memberRepository.findById(id)
-                    .orElseThrow(MemberNotFoundException::new);
-            member.getEvents().forEach(event -> event.getMembers().remove(member));
-            memberRepository.deleteById(id);
+    public void deleteMemberById(final Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(MemberNotFoundException::new);
+        member.getEvents().forEach(event -> event.getMembers().remove(member));
+        memberRepository.deleteById(id);
     }
 
     @Transactional
