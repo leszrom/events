@@ -22,7 +22,6 @@ public class MemberService {
     private final PermissionRepository permissionRepository;
     private final MemberMapper memberMapper;
 
-    @Autowired
     public MemberService(MemberRepository memberRepository, PermissionRepository permissionRepository, MemberMapper memberMapper) {
         this.memberRepository = memberRepository;
         this.permissionRepository = permissionRepository;

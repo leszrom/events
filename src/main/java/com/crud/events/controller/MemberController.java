@@ -4,7 +4,6 @@ import com.crud.events.domain.Role;
 import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.domain.dto.MemberResponse;
 import com.crud.events.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class MemberController {
     private final MemberService memberService;
 
-    @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
