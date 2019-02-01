@@ -2,11 +2,9 @@ package com.crud.events.service;
 
 import com.crud.events.domain.Member;
 import com.crud.events.domain.Permission;
-import com.crud.events.domain.Role;
 import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.domain.dto.MemberResponse;
 import com.crud.events.exception.MemberNotFoundException;
-import com.crud.events.exception.PermissionNotFoundException;
 import com.crud.events.mapper.MemberMapper;
 import com.crud.events.repository.MemberRepository;
 import com.crud.events.repository.PermissionRepository;
@@ -186,23 +184,6 @@ public class MemberServiceTestSuite {
 
         //Then
         Assert.assertTrue(member.getPermissions().contains(permission));
-    }
-
-    @Test
-    public void should_throw_exception_when_permission_with_given_role_does_not_exist() {
-        //Given
-        String exceptionMessage = "The Permission with the given ROLE doesn't exist!";
-        Member member = new Member(1L, "Firstname", "Lastname");
-
-        Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
-        Mockito.when(permissionRepository.findByRole(Role.valueOf("role"))).thenThrow(new PermissionNotFoundException());
-
-        //When
-        verifyException(memberService).addPermissionByMemberId(1L, Role.valueOf("role"));
-
-        //Then
-        Assert.assertEquals(PermissionNotFoundException.class, caughtException().getClass());
-        Assert.assertEquals(exceptionMessage, caughtException().getMessage());
     }
 
     @Test
