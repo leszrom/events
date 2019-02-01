@@ -1,5 +1,6 @@
 package com.crud.events.service;
 
+import com.crud.events.domain.Event;
 import com.crud.events.domain.Member;
 import com.crud.events.domain.Permission;
 import com.crud.events.domain.dto.MemberRequest;
@@ -16,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -125,12 +127,20 @@ public class MemberServiceTestSuite {
     }
 
     @Test
-    public void should_delete_task_by_given_id() {
+    public void should_delete_member_by_given_id() {
         //Given
+        Member member = new Member(1L, "Firstname", "Lastname");
+        Event event = new Event("Name", "Description", LocalDateTime.parse("2018-01-23T14:30"));
+        member.getEvents().add(event);
+        event.getMembers().add(member);
+
+        Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
+
         //When
         memberService.deleteMemberById(1L);
 
         //Then
+        Assert.assertEquals(0, event.getMembers().size());
         Mockito.verify(memberRepository, Mockito.times(1)).deleteById(1L);
     }
 
