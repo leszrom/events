@@ -136,4 +136,21 @@ public class MemberControllerTestSuite {
         Assert.assertEquals(1, member.getPermissions().size());
     }
 
+    @Test
+    @Transactional
+    public void should_revoke_permission_for_member() throws Exception {
+        //Given
+        Member member = new Member("Firstname", "Lastname");
+        member.getPermissions().add(new Permission(VIP));
+        memberRepository.save(member);
+
+        //When
+        mockMvc.perform(delete(
+                "/v1/members/{memberId}/permissions?role={role}", member.getId(), VIP)
+                .contentType(MediaType.APPLICATION_JSON))
+
+                //Then
+                .andExpect(status().is(200));
+        Assert.assertEquals(0, member.getPermissions().size());
+    }
 }
