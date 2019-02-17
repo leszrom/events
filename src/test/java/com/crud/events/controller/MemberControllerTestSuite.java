@@ -94,4 +94,25 @@ public class MemberControllerTestSuite {
                 .andExpect(status().is(200));
         Assert.assertEquals(0, memberRepository.findAll().size());
     }
+
+    @Test
+    public void should_update_member_details() throws Exception {
+        //Given
+        Member member = memberRepository.save(new Member("Firstname", "Lastname"));
+        MemberRequest memberRequest = new MemberRequest("new_Firstname", "new_Lastname");
+
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(memberRequest);
+
+        //When
+        mockMvc.perform(put("/v1/members/{memberId}", member.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                //Then
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.id", is(member.getId().intValue())))
+                .andExpect(jsonPath("$.firstname", is("new_Firstname")))
+                .andExpect(jsonPath("$.lastname", is("new_Lastname")));
+    }
 }
