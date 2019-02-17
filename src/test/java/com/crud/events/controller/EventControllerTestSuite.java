@@ -1,7 +1,6 @@
 package com.crud.events.controller;
 
-import com.crud.events.domain.dto.EventRequest;
-import com.google.gson.Gson;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -28,10 +26,7 @@ public class EventControllerTestSuite {
     @Test
     public void should_create_new_event() throws Exception {
         //Given
-        EventRequest eventRequest = new EventRequest("name", "description", LocalDateTime.parse("2018-01-23T14:30"));
-
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(eventRequest);
+        String jsonContent = "{\"name\":\"name\",\"description\":\"description\",\"date\":\"2018-01-23 14:30\"}";
 
         //When
         mockMvc.perform(post("/v1/events")
@@ -40,6 +35,7 @@ public class EventControllerTestSuite {
                 .content(jsonContent))
 
                 //Then
-                .andExpect(status().is(200));
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", Matchers.is(1)));
     }
 }
