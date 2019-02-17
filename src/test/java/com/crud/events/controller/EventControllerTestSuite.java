@@ -25,7 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-
 public class EventControllerTestSuite {
 
     @Autowired
@@ -50,7 +49,7 @@ public class EventControllerTestSuite {
 
                 //Then
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$", Matchers.is(1)));
+                .andExpect(jsonPath("$", Matchers.greaterThanOrEqualTo(1)));
     }
 
     @Test
