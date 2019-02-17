@@ -1,6 +1,8 @@
 package com.crud.events.controller;
 
+import com.crud.events.domain.Member;
 import com.crud.events.domain.dto.MemberRequest;
+import com.crud.events.repository.MemberRepository;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -11,9 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,6 +25,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class MemberControllerTestSuite {
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     public void should_create_new_member() throws Exception {
@@ -35,8 +42,25 @@ public class MemberControllerTestSuite {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 //Then
-                .andExpect(MockMvcResultMatchers.status().is(200))
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.greaterThanOrEqualTo(1)));
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", Matchers.greaterThanOrEqualTo(1)));
+    }
+
+    @Test
+    public void should_return_member_by_given_id() throws Exception {
+        //Given
+        Member member = memberRepository.save(new Member("Firstname", "Lastname"));
+
+        //When
+        mockMvc.perform(get(
+                "/v1/members/{memberId}", member.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+
+                //Then
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.id", Matchers.greaterThanOrEqualTo(1)))
+                .andExpect(jsonPath("$.firstname", Matchers.is("Firstname")))
+                .andExpect(jsonPath("$.lastname", Matchers.is("Lastname")));
     }
 
 }
