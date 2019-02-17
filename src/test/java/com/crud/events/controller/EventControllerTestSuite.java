@@ -37,6 +37,7 @@ public class EventControllerTestSuite {
     MemberRepository memberRepository;
 
     @Test
+    @Transactional
     public void should_create_new_event() throws Exception {
         //Given
         String jsonContent = "{\"name\":\"name\",\"description\":\"description\",\"date\":\"2018-01-23 14:30\"}";

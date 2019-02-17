@@ -35,6 +35,7 @@ public class MemberControllerTestSuite {
     MemberRepository memberRepository;
 
     @Test
+    @Transactional
     public void should_create_new_member() throws Exception {
         //Given
         MemberRequest memberRequest = new MemberRequest("Firstname", "Lastname");
@@ -52,6 +53,7 @@ public class MemberControllerTestSuite {
     }
 
     @Test
+    @Transactional
     public void should_return_member_by_given_id() throws Exception {
         //Given
         Member member = memberRepository.save(new Member("Firstname", "Lastname"));
@@ -69,6 +71,7 @@ public class MemberControllerTestSuite {
     }
 
     @Test
+    @Transactional
     public void should_return_all_members() throws Exception {
         //Given
         memberRepository.save(new Member("Firstname", "Lastname"));
@@ -86,6 +89,7 @@ public class MemberControllerTestSuite {
     }
 
     @Test
+    @Transactional
     public void should_delete_member_by_given_id() throws Exception {
         //Given
         Member member = memberRepository.save(new Member("Firstname", "Lastname"));
@@ -100,6 +104,7 @@ public class MemberControllerTestSuite {
     }
 
     @Test
+    @Transactional
     public void should_update_member_details() throws Exception {
         //Given
         Member member = memberRepository.save(new Member("Firstname", "Lastname"));
