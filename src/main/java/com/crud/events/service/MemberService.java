@@ -10,7 +10,6 @@ import com.crud.events.exception.PermissionNotFoundException;
 import com.crud.events.mapper.MemberMapper;
 import com.crud.events.repository.MemberRepository;
 import com.crud.events.repository.PermissionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -47,11 +46,11 @@ public class MemberService {
     }
 
     @Transactional
-        public void deleteMemberById(final Long id) {
-            Member member = memberRepository.findById(id)
-                    .orElseThrow(MemberNotFoundException::new);
-            member.getEvents().forEach(event -> event.getMembers().remove(member));
-            memberRepository.deleteById(id);
+    public void deleteMemberById(final Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(MemberNotFoundException::new);
+        member.getEvents().forEach(event -> event.getMembers().remove(member));
+        memberRepository.deleteById(id);
     }
 
     @Transactional
@@ -60,6 +59,7 @@ public class MemberService {
                 .orElseThrow(MemberNotFoundException::new);
         member.setFirstname(memberRequest.getFirstname());
         member.setLastname(memberRequest.getLastname());
+        memberRepository.save(member);
         return memberMapper.mapToMemberResponse(member);
     }
 
@@ -68,8 +68,9 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
         Permission permission = permissionRepository.findByRole(role)
-                .orElse(new Permission(role));
+                .orElseGet(() -> new Permission(role));
         member.getPermissions().add(permission);
+        memberRepository.save(member);
     }
 
     @Transactional
@@ -79,5 +80,6 @@ public class MemberService {
         Permission permission = permissionRepository.findByRole(role)
                 .orElseThrow(PermissionNotFoundException::new);
         member.getPermissions().remove(permission);
+        memberRepository.save(member);
     }
 }

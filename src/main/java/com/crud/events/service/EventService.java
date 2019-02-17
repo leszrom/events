@@ -43,6 +43,7 @@ public class EventService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(EventNotFoundException::new);
         event.getMembers().add(member);
+        eventRepository.save(event);
     }
 
     @Transactional
@@ -52,5 +53,6 @@ public class EventService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(MemberNotFoundException::new);
         event.getMembers().remove(member);
+        eventRepository.save(event);
     }
 }
