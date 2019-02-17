@@ -5,6 +5,7 @@ import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.repository.MemberRepository;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -65,7 +65,7 @@ public class MemberControllerTestSuite {
     }
 
     @Test
-    public void should_return_all_members()throws Exception {
+    public void should_return_all_members() throws Exception {
         //Given
         memberRepository.save(new Member("Firstname", "Lastname"));
 
@@ -79,5 +79,19 @@ public class MemberControllerTestSuite {
                 .andExpect(jsonPath("$[0].id", greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$[0].firstname", is("Firstname")))
                 .andExpect(jsonPath("$[0].lastname", is("Lastname")));
+    }
+
+    @Test
+    public void should_delete_member_by_given_id() throws Exception {
+        //Given
+        Member member = memberRepository.save(new Member("Firstname", "Lastname"));
+
+        //When
+        mockMvc.perform(delete("/v1/members/{memberId}", member.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+
+                //Then
+                .andExpect(status().is(200));
+        Assert.assertEquals(0, memberRepository.findAll().size());
     }
 }
