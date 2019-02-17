@@ -1,6 +1,7 @@
 package com.crud.events.controller;
 
 import com.crud.events.domain.Member;
+import com.crud.events.domain.Permission;
 import com.crud.events.domain.dto.MemberRequest;
 import com.crud.events.repository.MemberRepository;
 import com.google.gson.Gson;
@@ -15,6 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
+
+import static com.crud.events.domain.Role.VIP;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -115,4 +119,21 @@ public class MemberControllerTestSuite {
                 .andExpect(jsonPath("$.firstname", is("new_Firstname")))
                 .andExpect(jsonPath("$.lastname", is("new_Lastname")));
     }
+
+    @Test
+    @Transactional
+    public void should_add_permission_for_member() throws Exception {
+        //Given
+        Member member = memberRepository.save(new Member("Firstname", "Lastname"));
+
+        //When
+        mockMvc.perform(put(
+                "/v1/members/{memberId}/permissions?role={role}", member.getId(), VIP)
+                .contentType(MediaType.APPLICATION_JSON))
+
+                //Then
+                .andExpect(status().is(200));
+        Assert.assertEquals(1, member.getPermissions().size());
+    }
+
 }
