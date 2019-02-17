@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -63,4 +64,20 @@ public class MemberControllerTestSuite {
                 .andExpect(jsonPath("$.lastname", Matchers.is("Lastname")));
     }
 
+    @Test
+    public void should_return_all_members()throws Exception {
+        //Given
+        memberRepository.save(new Member("Firstname", "Lastname"));
+
+        //When
+        mockMvc.perform(get("/v1/members")
+                .contentType(MediaType.APPLICATION_JSON))
+
+                //Then
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id", greaterThanOrEqualTo(1)))
+                .andExpect(jsonPath("$[0].firstname", is("Firstname")))
+                .andExpect(jsonPath("$[0].lastname", is("Lastname")));
+    }
 }
