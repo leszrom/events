@@ -68,7 +68,7 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
         Permission permission = permissionRepository.findByRole(role)
-                .orElseGet(() -> new Permission(role));
+                .orElseGet(() -> permissionRepository.save(new Permission(role)));
         member.getPermissions().add(permission);
         memberRepository.save(member);
     }
