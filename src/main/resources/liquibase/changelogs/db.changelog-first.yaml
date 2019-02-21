@@ -9,16 +9,16 @@ databaseChangeLog:
               - column:
                   name: Id
                   type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - primaryKeyName: PK_Member
               - column:
                   name: Firstname
                   type: varchar(100)
               - column:
                   name: Lastname
                   type: varchar(100)
-        - addPrimaryKey:
-            columnNames: Id
-            constraintName: PK_Member
-            tableName: Members
 
   - changeSet:
       id: 2
@@ -30,13 +30,13 @@ databaseChangeLog:
               - column:
                   name: Id
                   type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - primaryKeyName: PK_Permission
               - column:
                   name: Role
                   type: varchar(100)
-        - addPrimaryKey:
-            columnNames: Id
-            constraintName: PK_Permission
-            tableName: Permissions
 
   - changeSet:
       id: 3
@@ -48,6 +48,10 @@ databaseChangeLog:
               - column:
                   name: Id
                   type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - primaryKeyName: PK_Event
               - column:
                   name: Name
                   type: varchar(100)
@@ -57,10 +61,6 @@ databaseChangeLog:
               - column:
                   name: Eventdate
                   type: DATETIME
-        - addPrimaryKey:
-            columnNames: Id
-            constraintName: PK_Event
-            tableName: Events
 
   - changeSet:
       id: 4
@@ -91,6 +91,7 @@ databaseChangeLog:
             constraintName: FK_Permission
             referencedTableName: Permissions
             referencedColumnNames: Id
+
   - changeSet:
       id: 5
       author: leszrom
