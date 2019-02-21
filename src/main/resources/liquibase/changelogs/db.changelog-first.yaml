@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Members
+            columns:
+              - column:
+                  name: Id
+                  type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - uniqueConstraintName: PK_Member
+                    - primaryKey: true
+                    - unique: true
+              - column:
+                  name: Firstname
+                  type: varchar(100)
+              - column:
+                  name: Lastname
+                  type: varchar(100)
+  - changeSet:
+      id: 2
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Permissions
+            columns:
+              - column:
+                  name: Id
+                  type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - uniqueConstraintName: PK_Permission
+                    - primaryKey: true
+                    - unique: true
+              - column:
+                  name: Role
+                  type: varchar(100)
+  - changeSet:
+      id: 3
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Events
+            columns:
+              - column:
+                  name: Id
+                  type: bigint unsigned not null
+              - column:
+                  name: Name
+                  type: varchar(100)
+              - column:
+                  name: Description
+                  type: varchar(1000)
+              - column:
+                  name: Eventdate
+                  type: DATETIME
+        - addPrimaryKey:
+            columnNames: Id
+            constraintName: PK_Event
+            tableName: Events
+
+  - changeSet:
+      id: 4
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Members_Permissions
+            columns:
+              - column:
+                  name: MemberId
+                  type: bigint unsigned not null
+              - column:
+                  name: PermissionId
+                  type: bigint unsigned not null
+        - addPrimaryKey:
+            columnNames: MemberId, PermissionId
+            constraintName: PK_Member_Permission
+            tableName: Members_Permissions
