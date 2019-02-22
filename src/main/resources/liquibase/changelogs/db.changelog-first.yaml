@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Members
+            columns:
+              - column:
+                  name: Id
+                  type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - primaryKeyName: PK_Member
+              - column:
+                  name: Firstname
+                  type: varchar(100)
+              - column:
+                  name: Lastname
+                  type: varchar(100)
+
+  - changeSet:
+      id: 2
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Permissions
+            columns:
+              - column:
+                  name: Id
+                  type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - primaryKeyName: PK_Permission
+              - column:
+                  name: Role
+                  type: varchar(100)
+
+  - changeSet:
+      id: 3
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Events
+            columns:
+              - column:
+                  name: Id
+                  type: bigint unsigned not null
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - primaryKeyName: PK_Event
+              - column:
+                  name: Name
+                  type: varchar(100)
+              - column:
+                  name: Description
+                  type: varchar(1000)
+              - column:
+                  name: Eventdate
+                  type: DATETIME
+
+  - changeSet:
+      id: 4
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Members_Permissions
+            columns:
+              - column:
+                  name: MemberId
+                  type: bigint unsigned not null
+              - column:
+                  name: PermissionId
+                  type: bigint unsigned not null
+        - addPrimaryKey:
+            columnNames: MemberId, PermissionId
+            constraintName: PK_Member_Permission
+            tableName: Members_Permissions
+        - addForeignKeyConstraint:
+            baseColumnNames: MemberId
+            baseTableName: Members_Permissions
+            constraintName: FK_Member
+            referencedColumnNames: Id
+            referencedTableName: Members
+        - addForeignKeyConstraint:
+            baseTableName: Members_Permissions
+            baseColumnNames: PermissionId
+            constraintName: FK_Permission
+            referencedTableName: Permissions
+            referencedColumnNames: Id
+
+  - changeSet:
+      id: 5
+      author: leszrom
+      changes:
+        - createTable:
+            tableName: Events_Members
+            columns:
+              - column:
+                  name: EventId
+                  type: bigint unsigned not null
+              - column:
+                  name: MemberId
+                  type: bigint unsigned not null
+        - addPrimaryKey:
+            columnNames: EventId, MemberId
+            constraintName: PK_Event_Member
+            tableName: Events_Members
+
+        - addForeignKeyConstraint:
+            baseTableName: Events_Members
+            baseColumnNames: EventId
+            constraintName: FK_Event
+            referencedTableName: Events
+            referencedColumnNames: Id
+
+        - addForeignKeyConstraint:
+            baseTableName: Events_Members
+            baseColumnNames: MemberId
+            constraintName: FK_Member_2
+            referencedTableName: Members
+            referencedColumnNames: Id
