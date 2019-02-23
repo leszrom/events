@@ -1,3 +1,5 @@
 databaseChangeLog:
-- include:
-    file: liquibase/changelogs/db.changelog-first.yaml
+  - include:
+      file: liquibase/changelogs/db.changelog-first.yaml
+  - include:
+      file: liquibase/changelogs/db.changelog-data.sql
