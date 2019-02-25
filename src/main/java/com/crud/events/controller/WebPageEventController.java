@@ -2,6 +2,7 @@ package com.crud.events.controller;
 
 import com.crud.events.service.WebPageEventService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +20,13 @@ public class WebPageEventController {
     public ModelAndView getEventsView() {
         ModelAndView modelAndView = new ModelAndView("events");
         modelAndView.addObject("events", webPageEventService.getAllEvents());
+        return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "events/{id}")
+    public ModelAndView getEventView(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("event");
+        modelAndView.addObject("event", webPageEventService.getEventById(id));
         return modelAndView;
     }
 }

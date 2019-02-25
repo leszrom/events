@@ -1,6 +1,7 @@
 package com.crud.events.service;
 
 import com.crud.events.domain.Event;
+import com.crud.events.exception.EventNotFoundException;
 import com.crud.events.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,11 @@ public class WebPageEventService {
     @Transactional
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
+    }
+
+    @Transactional
+    public Event getEventById(final Long id) {
+        return eventRepository.findById(id)
+                .orElseThrow(EventNotFoundException::new);
     }
 }
