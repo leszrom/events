@@ -31,6 +31,7 @@ values ('Jan', 'Kot'),
 -- changeset leszrom:4
 insert into Members_Permissions(MemberID, PermissionID)
 values (1, 1),
+       (1, 3),
        (2, 1),
        (3, 1),
        (4, 1),
@@ -39,12 +40,14 @@ values (1, 1),
        (7, 1),
        (8, 1),
        (9, 1),
+       (9, 3),
        (10, 1),
        (11, 1),
        (12, 1),
        (13, 2),
        (14, 3),
-       (15, 2);
+       (15, 2),
+       (15, 3);
 
 -- changeset leszrom:5
 insert into Events_Members(EventID, MemberID)
