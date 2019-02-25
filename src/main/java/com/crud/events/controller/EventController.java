@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("v1/events")
+@RequestMapping("v1")
 public class EventController {
     private final EventService eventService;
 
@@ -15,17 +15,17 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "events", consumes = APPLICATION_JSON_VALUE)
     public Long createEvent(@RequestBody EventRequest eventRequest) {
         return eventService.saveNewEvent(eventRequest);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "{eventId}/members")
+    @RequestMapping(method = RequestMethod.PUT, value = "events/{eventId}/members")
     public void addEventMember(Long memberId, @PathVariable Long eventId) {
         eventService.addMemberToEvent(memberId, eventId);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "{eventId}/members")
+    @RequestMapping(method = RequestMethod.DELETE, value = "events/{eventId}/members")
     public void removeEventMember(Long memberId, @PathVariable Long eventId) {
         eventService.removeMemberFromEvent(memberId, eventId);
     }
