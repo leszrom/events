@@ -25,4 +25,8 @@ public class Permission {
     public Permission(Role role) {
         this.role = role;
     }
+
+    public Role getRole() {
+        return role;
+    }
 }
