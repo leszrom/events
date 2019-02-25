@@ -17,7 +17,7 @@ public class WebPageMemberController {
 
     @RequestMapping(value = "members", method = RequestMethod.GET)
     public ModelAndView getMembersView() {
-        ModelAndView modelAndView = new ModelAndView("home");
+        ModelAndView modelAndView = new ModelAndView("allMembers");
         modelAndView.addObject("members", webPageMemberService.getAllMembers());
         return modelAndView;
     }
