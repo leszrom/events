@@ -8,10 +8,13 @@
 <span>Members:</span>
 <br/>
 <ul th:each="member : ${members}">
-    <li th:text="${member.getFirstname()}+' '+${member.getLastname()}"></li>
-    <ul th:each="permission : ${member.getPermissions()}">
-        <li th:text="${permission.getRole()}"></li>
-    </ul>
+    <a th:href="'members/' +${member.getId()}">
+        <li th:text="${member.getFirstname()}+' '+${member.getLastname()}"></li>
+    </a>
+        <ul th:each="permission : ${member.getPermissions()}">
+            <li th:text="${permission.getRole()}"></li>
+        </ul>
+
 </ul>
 </body>
 </html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Member</title>
+</head>
+<body>
+<span>Member:</span>
+<br/>
+<span th:text="${member.firstname}+' '+${member.lastname}"></span>
+<br/>
+<ul th:each="permission : ${member.permissions}">
+    <li th:text="${permission.role}"></li>
+</ul>
+</body>
+</html>
