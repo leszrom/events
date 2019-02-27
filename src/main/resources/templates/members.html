@@ -2,19 +2,42 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Members</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<span>Members:</span>
-<br/>
-<ul th:each="member : ${members}">
-    <a th:href="'members/' +${member.getId()}">
-        <li th:text="${member.getFirstname()}+' '+${member.getLastname()}"></li>
-    </a>
-        <ul th:each="permission : ${member.getPermissions()}">
-            <li th:text="${permission.getRole()}"></li>
-        </ul>
-
-</ul>
+<div class="container">
+    <h1>List of all members:</h1>
+    <div class="row justify-content-start">
+        <div class="col col-lg-2">
+            <button type="button" class="btn btn-outline-success btn-lg btn-block disabled">VIP's</button>
+            <div class="list-group" th:each="vip : ${vip_members}">
+                <a th:href="'members/' +${vip.id}"
+                   class="list-group-item list-group-item-action">
+                    <span th:text="${vip.firstname}+' '+${vip.lastname}"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col col-lg-2">
+            <button type="button" class="btn btn-outline-danger btn-lg btn-block disabled">NON VIP's</button>
+            <div class="list-group" th:each="non_vip : ${non_vip_members}">
+                <a th:href="'members/' +${non_vip.id}"
+                   class="list-group-item list-group-item-action">
+                    <span th:text="${non_vip.firstname}+' '+${non_vip.lastname}"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col col-lg-2">
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block disabled">ADMIN's</button>
+            <div class="list-group" th:each="admin : ${admin_members}">
+                <a th:href="'members/' +${admin.id}"
+                   class="list-group-item list-group-item-action">
+                    <span th:text="${admin.firstname}+' '+${admin.lastname}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

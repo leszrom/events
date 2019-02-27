@@ -1,9 +1,9 @@
 package com.crud.events.service;
 
 import com.crud.events.domain.Member;
+import com.crud.events.domain.Role;
 import com.crud.events.exception.MemberNotFoundException;
 import com.crud.events.repository.MemberRepository;
-import com.crud.events.repository.PermissionRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,5 +26,10 @@ public class WebPageMemberService {
     public Member getMemberById(final Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
+    }
+
+    @Transactional
+    public List<Member> getMembersByRole(Role role) {
+        return memberRepository.retrieveMembersWithRole(role);
     }
 }

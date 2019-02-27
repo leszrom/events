@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.crud.events.domain.Role.*;
+
 @Controller
 @RequestMapping("v1/front/")
 public class WebPageMemberController {
@@ -18,8 +20,11 @@ public class WebPageMemberController {
 
     @RequestMapping(value = "members", method = RequestMethod.GET)
     public ModelAndView getMembersView() {
-        ModelAndView modelAndView = new ModelAndView("allMembers");
+        ModelAndView modelAndView = new ModelAndView("members");
         modelAndView.addObject("members", webPageMemberService.getAllMembers());
+        modelAndView.addObject("vip_members", webPageMemberService.getMembersByRole(VIP));
+        modelAndView.addObject("non_vip_members", webPageMemberService.getMembersByRole(NON_VIP));
+        modelAndView.addObject("admin_members", webPageMemberService.getMembersByRole(ADMIN));
         return modelAndView;
     }
 
