@@ -26,6 +26,8 @@ values ('Jan', 'Kot'),
        ('Lech', 'Miech'),
        ('Anna', 'Panna'),
        ('Mirka', 'Kilof'),
+       ('Wiola', 'Gil'),
+       ('Anna', 'Bocian'),
        ('Olek', 'Kolka');
 
 -- changeset leszrom:4
@@ -47,22 +49,23 @@ values (1, 1),
        (13, 2),
        (14, 3),
        (15, 2),
-       (15, 3);
+       (16, 2),
+       (17, 2);
 
 -- changeset leszrom:5
 insert into Events_Members(EventID, MemberID)
 values (1, 1),
        (1, 2),
-       (1, 3),
        (1, 4),
        (1, 5),
        (1, 6),
        (1, 7),
-       (1, 8),
        (1, 9),
        (1, 10),
        (1, 11),
        (1, 12),
        (1, 13),
        (1, 14),
-       (1, 15);
+       (1, 15),
+       (1, 16),
+       (1, 17);
