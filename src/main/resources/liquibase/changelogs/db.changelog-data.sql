@@ -6,7 +6,7 @@ insert into Permissions(Role)
 
 -- changeset leszrom:
 insert into Events(Name, Description, Eventdate)
-values ('Wyd_1', 'Opis_1', '2018-10-23 14:30'),
+values ('Longer name of event to check text wraping', 'Opis_1', '2018-10-23 14:30'),
        ('Wyd_2', 'Opis_2', '2018-08-03 19:00'),
        ('Wyd_3', 'Opis_3', '2018-02-14 22:00');
 

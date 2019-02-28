@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Events</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<span>Events:</span>
-<br/>
-<ul th:each="event : ${events}">
-    <a th:href="'events/' + ${event.getId()}">
-        <li th:text="${event.getName()}+' '+${event.getDate()}"></li>
-    </a>
-</ul>
+<div class="container">
+    <h1>Events:</h1>
+    <div class="row justify-content-start">
+    <div class="col col-lg-3">
+        <button type="button" class="btn btn-outline-dark btn-lg btn-block disabled">EVENTS</button>
+        <div class="list-group" th:each="event : ${events}">
+            <a th:href="'events/' + ${event.id}"
+               class="list-group-item list-group-item-action">
+                <span th:text="${event.name}"></span>
+                <br/>
+                <span th:text="${event.date}"></span>
+            </a>
+        </div>
+    </div>
+    </div>
+</div>
 </body>
 </html>
