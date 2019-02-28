@@ -3,18 +3,45 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Event</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<span>Event:</span>
-<br/>
-<span th:text="${event.getName()}+' '+${event.getDate()}"></span>
-<br/>
-<span th:text="${event.getDescription()}"></span>
-<br/>
-<ul th:each="member : ${event.getMembers()}">
-    <a th:href="${event.getId()} + '/members/' + ${member.getId()}">
-        <li th:text="${member.getFirstname()}+' '+${member.getLastname()}"></li>
-    </a>
-</ul>
+<div class="container">
+    <h1>Event:</h1>
+    <div class="row justify-content-start">
+        <div class="col col-lg-3">
+            <button type="button"
+                    class="btn btn-outline-dark btn-lg btn-block disabled"
+                    th:text="${event.date}"></button>
+            <ul class="list-group">
+                <li class="list-group-item"
+                    th:text="${event.name}"></li>
+                <li class="list-group-item"
+                    th:text="${event.description}"></li>
+            </ul>
+        </div>
+        <div class="col col-lg-2">
+            <button type="button" class="btn btn-outline-dark btn-lg btn-block disabled">BASIC TEAM</button>
+            <div class="list-group" th:each="member : ${all_vip_members}">
+                <a th:href="${event.getId()} + '/members/' + ${member.getId()}"
+                   class="list-group-item list-group-item-action"
+                   th:classappend="${event.members.contains(member)} ?
+                   'list-group-item-success' : 'list-group-item-danger'">
+                    <span th:text="${member.firstname}+' '+${member.lastname}"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col col-lg-2">
+            <button type="button" class="btn btn-outline-dark btn-lg btn-block disabled">RESERVE</button>
+            <div class="list-group" th:each="member : ${non_vip_event_members}">
+                <a th:href="${event.getId()} + '/members/' + ${member.getId()}"
+                   class="list-group-item list-group-item-action list-group-item-warning">
+                    <span th:text="${member.firstname}+' '+${member.lastname}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
