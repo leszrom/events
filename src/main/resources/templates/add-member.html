@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>add-member</title>
+</head>
+<body>
+<form action="#" th:action="@{/members}" th:object="${member}" method="post">
+    <label for="firstName">First Name</label>
+    <input type="text" th:field="*{firstname}" id="firstName" placeholder="firstName"/>
+    <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
+
+    <label for="lastName">Last Name</label>
+    <input type="text" th:field="*{lastname}" id="lastName" placeholder="lastName"/>
+    <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
+
+    <input type="submit" value="Add Member"/>
+</form>
+</body>
+</html>

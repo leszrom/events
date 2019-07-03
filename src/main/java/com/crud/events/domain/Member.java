@@ -69,6 +69,10 @@ public class Member {
         return events;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }

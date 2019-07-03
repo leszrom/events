@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>index</title>
+</head>
+<body>
+<div th:switch="${members}">
+    <h2 th:case="null">No members yet!</h2>
+    <div th:case="*">
+        <h2>Members</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.firstname}"></td>
+                <td th:text="${member.lastname}"></td>
+                <td><a th:href="@{/members/{id}/edit(id=${member.id})}">Edit</a></td>
+                <td><a th:href="@{/members/{id}/delete(id=${member.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/members/new">Add a new member</a></p>
+</div>
+</body>
+</html>
