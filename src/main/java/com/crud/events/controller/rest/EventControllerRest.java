@@ -1,4 +1,4 @@
-package com.crud.events.controller;
+package com.crud.events.controller.rest;
 
 import com.crud.events.domain.dto.EventRequest;
 import com.crud.events.service.EventService;
@@ -8,10 +8,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("v1")
-public class EventController {
+public class EventControllerRest {
     private final EventService eventService;
 
-    public EventController(EventService eventService) {
+    public EventControllerRest(EventService eventService) {
         this.eventService = eventService;
     }
 

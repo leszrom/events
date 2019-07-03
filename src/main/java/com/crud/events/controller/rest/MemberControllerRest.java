@@ -1,4 +1,4 @@
-package com.crud.events.controller;
+package com.crud.events.controller.rest;
 
 import com.crud.events.domain.Role;
 import com.crud.events.domain.dto.MemberRequest;
@@ -12,10 +12,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("v1")
-public class MemberController {
+public class MemberControllerRest {
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
+    public MemberControllerRest(MemberService memberService) {
         this.memberService = memberService;
     }
 
