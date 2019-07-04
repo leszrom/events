@@ -33,7 +33,7 @@ public class MController {
     }
 
     @PostMapping("/members")
-    public String addUser(@Valid Member member, BindingResult result, Model model) {
+    public String addMember(@Valid Member member, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-member";
         }
