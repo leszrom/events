@@ -44,8 +44,7 @@ public class MController {
         }
         webPageMemberService.addMember(member);
         model.addAttribute("member", member);
-        model.addAttribute("members", webPageMemberService.getAllMembers());
-        return "index";
+        return "redirect:/members";
     }
 
     @GetMapping("/members/{id}/edit")
