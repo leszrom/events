@@ -80,4 +80,8 @@ public class Member {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
 }
