@@ -1,6 +1,7 @@
 package com.crud.events.controller;
 
 import com.crud.events.domain.Member;
+import com.crud.events.domain.Role;
 import com.crud.events.service.WebPageMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class MController {
     @GetMapping("/members")
     public String showAllMembers(Model model) {
         model.addAttribute("members", webPageMemberService.getAllMembers());
+        model.addAttribute("vips", webPageMemberService.getMembersByRole(Role.VIP));
+        model.addAttribute("nonVips", webPageMemberService.getMembersByRole(Role.NON_VIP));
+        model.addAttribute("admins", webPageMemberService.getMembersByRole(Role.ADMIN));
         return "index";
     }
 
