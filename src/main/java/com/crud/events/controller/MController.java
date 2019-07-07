@@ -45,8 +45,8 @@ public class MController {
 
     @GetMapping("/members/{id}/edit")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Member member = webPageMemberService.getMemberById(id);
-        model.addAttribute("member", member);
+        model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
+        model.addAttribute("member", webPageMemberService.getMemberById(id));
         return "update-member";
     }
 
