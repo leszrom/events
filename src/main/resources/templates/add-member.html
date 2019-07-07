@@ -18,7 +18,7 @@
         <li th:each="permission : ${allPermissions}">
             <input type="checkbox"
                    th:field="*{permissions}" th:value="${permission.id}"/>
-            <label th:text="${permission.id}"></label>
+            <label th:text="${permission.role}"></label>
         </li>
     </ul>
 
