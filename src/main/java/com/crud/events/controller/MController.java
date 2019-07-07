@@ -23,7 +23,8 @@ public class MController {
     }
 
     @GetMapping("/members/new")
-    public String showSignUpForm(Member member) {
+    public String showSignUpForm(Member member, Model model) {
+        model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
         return "add-member";
     }
 

@@ -14,6 +14,14 @@
     <input type="text" th:field="*{lastname}" id="lastName" placeholder="lastName"/>
     <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
 
+    <ul>
+        <li th:each="permission : ${allPermissions}">
+            <input type="checkbox"
+                   th:field="*{permissions}" th:value="${permission.id}"/>
+            <label th:text="${permission.id}"></label>
+        </li>
+    </ul>
+
     <input type="submit" value="Add Member"/>
 </form>
 </body>
