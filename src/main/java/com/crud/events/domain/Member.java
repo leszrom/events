@@ -1,5 +1,7 @@
 package com.crud.events.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,11 @@ public class Member {
     private Long id;
 
     @Column(name = "Firstname")
+    @NotBlank(message = "Firstname is mandatory")
     private String firstname;
 
     @Column(name = "Lastname")
+    @NotBlank(message = "Firstname is mandatory")
     private String lastname;
 
     @ManyToMany(cascade = CascadeType.PERSIST)

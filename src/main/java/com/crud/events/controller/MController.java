@@ -33,17 +33,18 @@ public class MController {
 
     @GetMapping("/members/new")
     public String showSignUpForm(Member member, Model model) {
+        model.addAttribute("member", member);
         model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
         return "add-member";
     }
 
     @PostMapping("/members")
     public String addMember(@Valid Member member, BindingResult result, Model model) {
+
         if (result.hasErrors()) {
-            return "add-member";
+            return showSignUpForm(member, model);
         }
         webPageMemberService.addMember(member);
-        model.addAttribute("member", member);
         return "redirect:/members";
     }
 
