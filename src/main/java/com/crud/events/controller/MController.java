@@ -22,12 +22,6 @@ public class MController {
         this.webPageMemberService = webPageMemberService;
     }
 
-    @GetMapping("/members/new")
-    public String showSignUpForm(Member member, Model model) {
-        model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
-        return "add-member";
-    }
-
     @GetMapping("/members")
     public String showAllMembers(Model model) {
         model.addAttribute("members", webPageMemberService.getAllMembers());
@@ -35,6 +29,12 @@ public class MController {
         model.addAttribute("nonVips", webPageMemberService.getMembersByRole(Role.NON_VIP));
         model.addAttribute("admins", webPageMemberService.getMembersByRole(Role.ADMIN));
         return "index";
+    }
+
+    @GetMapping("/members/new")
+    public String showSignUpForm(Member member, Model model) {
+        model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
+        return "add-member";
     }
 
     @PostMapping("/members")
