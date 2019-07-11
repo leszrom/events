@@ -39,4 +39,12 @@ public class WebPageEventService {
         members.forEach(member -> event.getMembers().add(member));
         eventRepository.save(event);
     }
+
+    @Transactional
+    public void removeEventById(final Long id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(EventNotFoundException::new);
+        event.getMembers().forEach(member -> member.getEvents().remove(event));
+        eventRepository.deleteById(id);
+    }
 }
