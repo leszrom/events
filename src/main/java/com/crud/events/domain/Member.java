@@ -25,7 +25,7 @@ public class Member {
     private String firstname;
 
     @Column(name = "Lastname")
-    @NotBlank(message = "Firstname is mandatory")
+    @NotBlank(message = "Lastname is mandatory")
     private String lastname;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
