@@ -32,7 +32,7 @@ public class MController {
     }
 
     @GetMapping("/members/new")
-    public String showSignUpForm(Member member, Model model) {
+    public String showCreateMemberForm(Member member, Model model) {
         model.addAttribute("member", member);
         model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
         return "add-member";
@@ -42,21 +42,21 @@ public class MController {
     public String addMember(@Valid Member member, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            return showSignUpForm(member, model);
+            return showCreateMemberForm(member, model);
         }
         webPageMemberService.addMember(member);
         return "redirect:/members";
     }
 
     @GetMapping("/members/{id}/edit")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    public String showUpdateMemberForm(@PathVariable("id") long id, Model model) {
         model.addAttribute("member", webPageMemberService.getMemberById(id));
         model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
         return "update-member";
     }
 
     @PostMapping("/members/{id}")
-    public String updateUser(@PathVariable("id") long id, @Valid Member member, BindingResult result, Model model) {
+    public String updateMember(@PathVariable("id") long id, @Valid Member member, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("member", member);
             model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
@@ -67,7 +67,7 @@ public class MController {
     }
 
     @GetMapping("/members/{id}/delete")
-    public String deleteUser(@PathVariable("id") long id) {
+    public String deleteMember(@PathVariable("id") long id) {
         webPageMemberService.removeMemberById(id);
         return "redirect:/members";
     }
