@@ -50,15 +50,16 @@ public class MController {
 
     @GetMapping("/members/{id}/edit")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
         model.addAttribute("member", webPageMemberService.getMemberById(id));
+        model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
         return "update-member";
     }
 
     @PostMapping("/members/{id}")
-    public String updateUser(@PathVariable("id") long id, @Valid Member member, BindingResult result) {
+    public String updateUser(@PathVariable("id") long id, @Valid Member member, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            member.setId(id);
+            model.addAttribute("member", member);
+            model.addAttribute("allPermissions", webPageMemberService.getAllPermissions());
             return "update-member";
         }
         webPageMemberService.addMember(member);
