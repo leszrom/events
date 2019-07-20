@@ -16,7 +16,7 @@
 
     <ul>
         <li th:each="permission : ${allPermissions}">
-            <input type="checkbox"
+            <input th:type="${permission.role.name().equals('ADMIN')}? 'checkbox' : 'radio'"
                    th:field="*{permissions}" th:value="${permission.id}"/>
             <label th:text="${permission.role}"></label>
         </li>
