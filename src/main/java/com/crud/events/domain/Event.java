@@ -1,5 +1,6 @@
 package com.crud.events.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,9 +17,11 @@ public class Event {
     private Long id;
 
     @Column(name = "Name")
+    @NotBlank(message = "The event has to be named")
     private String name;
 
     @Column(name = "Description")
+    @NotBlank(message = "The event has to have description")
     private String description;
 
     @Column(name = "Eventdate")
@@ -78,5 +81,9 @@ public class Event {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
 }

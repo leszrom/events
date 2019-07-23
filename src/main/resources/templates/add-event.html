@@ -16,7 +16,6 @@
 
     <label for="date">Date</label>
     <input type="datetime-local" th:field="*{date}" id="date"/>
-    <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
 
     <ul>
         <li th:each="member : ${vips}">

@@ -47,4 +47,9 @@ public class WebPageEventService {
         event.getMembers().forEach(member -> member.getEvents().remove(event));
         eventRepository.deleteById(id);
     }
+
+    @Transactional
+    public void addEvent(final Event event) {
+        eventRepository.save(event);
+    }
 }
