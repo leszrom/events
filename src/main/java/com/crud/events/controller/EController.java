@@ -53,6 +53,14 @@ public class EController {
         return "redirect:/events";
     }
 
+    @GetMapping("/events/{id}/edit")
+    public String showUpdateEventForm(@PathVariable("id") long id, Model model) {
+        model.addAttribute("event", webPageEventService.getEventById(id));
+        model.addAttribute("vips", webPageMemberService.getMembersByRole(Role.VIP));
+        model.addAttribute("nonVips", webPageMemberService.getMembersByRole(Role.NON_VIP));
+        return "update-event";
+    }
+
     @GetMapping("/events/{id}/delete")
     public String deleteEvent(@PathVariable("id") long id) {
         webPageEventService.removeEventById(id);

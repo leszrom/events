@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>add-event</title>
+</head>
+<body>
+<form action="#" th:action="@{/events/{id}(id=${event.id})}" th:object="${event}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="name"/>
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" id="description" placeholder="description"/>
+    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+
+    <label for="date">Date</label>
+    <input type="datetime-local" th:field="*{date}" id="date"/>
+
+    <ul>
+        <li th:each="member : ${vips}">
+            <input type="checkbox"
+                   th:field="*{members}" th:value="${member.id}"/>
+            <label th:text="${member.firstname}+' '+${member.lastname}"></label>
+        </li>
+    </ul>
+
+    <ul>
+        <li th:each="member : ${nonVips}">
+            <input type="checkbox"
+                   th:field="*{members}" th:value="${member.id}"/>
+            <label th:text="${member.firstname}+' '+${member.lastname}"></label>
+        </li>
+    </ul>
+
+    <input type="submit" value="Update Event"/>
+</form>
+</body>
+</html>
