@@ -28,7 +28,7 @@ public class MController {
         model.addAttribute("vips", webPageMemberService.getMembersByRole(Role.VIP));
         model.addAttribute("nonVips", webPageMemberService.getMembersByRole(Role.NON_VIP));
         model.addAttribute("admins", webPageMemberService.getMembersByRole(Role.ADMIN));
-        return "index";
+        return "all-members";
     }
 
     @GetMapping("/members/new")
