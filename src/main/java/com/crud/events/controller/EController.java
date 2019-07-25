@@ -61,6 +61,18 @@ public class EController {
         return "update-event";
     }
 
+    @PostMapping("/events/{id}")
+    public String updateEvent(@PathVariable("id") long id, @Valid Event event, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("event", event);
+            model.addAttribute("vips", webPageMemberService.getMembersByRole(Role.VIP));
+            model.addAttribute("nonVips", webPageMemberService.getMembersByRole(Role.NON_VIP));
+            return "update-event";
+        }
+        webPageEventService.addEvent(event);
+        return "redirect:/events";
+    }
+
     @GetMapping("/events/{id}/delete")
     public String deleteEvent(@PathVariable("id") long id) {
         webPageEventService.removeEventById(id);
