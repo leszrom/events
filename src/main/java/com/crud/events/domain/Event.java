@@ -1,5 +1,7 @@
 package com.crud.events.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +21,8 @@ public class Event {
     @Column(name = "Description")
     private String description;
 
-    @Column(name  = "Eventdate")
+    @Column(name = "Eventdate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime date;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -63,5 +66,17 @@ public class Event {
 
     public List<Member> getMembers() {
         return members;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 }

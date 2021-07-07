@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Member</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-start">
+        <div class="col-3">
+            <nav class="nav nav-pills flex-column" aria-orientation="vertical">
+                <a class="flex-sm-fill text-sm-center nav-link" th:href="@{../home}">Home</a>
+                <a class="flex-sm-fill text-sm-center nav-link" th:href="@{../events}">Events</a>
+                <a class="flex-sm-fill text-sm-center nav-link" th:href="@{../members}">Members</a>
+            </nav>
+        </div>
+        <div class="col col-lg-3">
+            <button type="button"
+                    class="btn btn-outline-dark btn-lg btn-block disabled"
+                    th:text="${member.firstname}+' '+${member.lastname}"></button>
+            <ul class="list-group" th:each="permission : ${member.permissions}">
+                <li class="list-group-item"
+                    th:text="${permission.role}"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
